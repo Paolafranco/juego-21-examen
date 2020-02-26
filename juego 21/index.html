@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+   
+    <center><img src="imagenes/titulo.gif"></center>
+    <br>
+    <center><img src="imagenes/cartas.jpg"></center>
+    
+
+    <script src="carta.js"></script>
+    <script src="fabrica.js"></script>
+    <script src="jugador.js"></script>
+    <script src="mazo.js"></script>
+
+    
+<script>
+        var fabrica = new Fabrica();
+        console.log(fabrica);
+        var mazoCartas = new Mazo();
+        var player = new Jugador();
+        fabrica.crearCartas(mazoCartas);
+
+        function Jugar() {
+            var textoCarta = fabrica.pedirCarta(mazoCartas, player);
+            var li = document.createElement('li');
+
+            li.innerHTML = "<span>" + textoCarta + "</span>";
+            document.getElementById("listaDesordenada").appendChild(li);
+            if (player.puntaje > 21) {
+                //alert('HAS PERDIDO');
+                document.getElementById("botonPc").style = 'display:none'
+
+            }
+            if (player.puntaje == 21) {
+                //alert('FELICITACIONES HAS GANADO');
+                document.getElementById("botonPc").style = 'display:none'
+
+            }
+
+        }
+
+        function reiniciar() {
+            document.getElementById("botonPc").style = '';
+
+            var ul = document.getElementById("listaDesordenada");
+
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+            mazoCartas = new Mazo();
+            player = new Jugador();
+            fabrica.crearCartas(mazoCartas);
+        }
+
+        //pedirCarta(mazoCartas, player);
+        //pedirCarta(mazoCartas, player);
+    </script>
+    <br><br>
+    <center><button id="botonPc" onclick="Jugar()">PEDIR CARTA</button>
+        <button id="botonR" onclick="reiniciar()"> REINICIAR</button></center>
+    <br><br>
+    <BR>
+    <ul id="listaDesordenada">
+    </ul>
+    
+
+</body>
+
+</html>
